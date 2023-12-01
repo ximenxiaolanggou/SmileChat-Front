@@ -4,6 +4,8 @@ import 'virtual:svg-icons-register'
 import gloablComponent from './components/index';
 import '@/styles/index.scss'
 
+import pinia from '@/store'
+
 //引入路由
 import router from './router'
 
@@ -19,4 +21,7 @@ app.use(ElementPlus, {
 app.use(gloablComponent);
 //注册模板路由
 app.use(router)
+//安装仓库
+app.use(pinia)
 app.mount('#app')
+
