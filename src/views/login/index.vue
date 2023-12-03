@@ -2,10 +2,10 @@
 
 import LoginTip from './components/LoginTip.vue'
 import LoginMenu from './components/LoginMenu.vue'
-import userLoginStore from '@/store/module/login'
-import {LoginState} from '@/store/module/types/login'
+import useLoginStore from '@/store/modules/login'
+import {LoginState} from '@/store/modules/types/login'
 
-let loginStore:LoginState = userLoginStore()
+let loginStore:LoginState = useLoginStore()
 
 
 
@@ -15,8 +15,8 @@ let loginStore:LoginState = userLoginStore()
 <template>
   <div class="container">
    <div class="container-login">
-    <LoginTip  :class="['login-tip',loginStore.pwdLogin ? 'login-tip-to-pwd' : 'login-tip-to-weixin']"/>
-    <LoginMenu :class="['login-menu',loginStore.pwdLogin ? 'login-menu-to-pwd' : 'login-menu-to-weixin']"/>
+    <LoginTip  :class="['login-tip',loginStore.accountLogin ? 'login-tip-to-pwd' : 'login-tip-to-weixin']"/>
+    <LoginMenu :class="['login-menu',loginStore.accountLogin ? 'login-menu-to-pwd' : 'login-menu-to-weixin']"/>
    </div>
   </div>
 </template>
@@ -26,11 +26,14 @@ let loginStore:LoginState = userLoginStore()
   height: 100vh;
   background-image: linear-gradient(to right, #fbc2eb, #a6c1ee);
   overflow: hidden;
-  
+  display: flex;
+
   .container-login {
+    margin: auto;
     display: flex;
     width: 1000px;
-    margin: 200px auto;
+
+    margin: auto auto;
     .login-tip {
       z-index: 200;
     }

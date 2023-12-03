@@ -5,22 +5,22 @@ import { LoginState } from './types/login'
 
 
 //创建用户小仓库
-const userLoginStore = defineStore('login', {
+const useLoginStore = defineStore('login', {
   //小仓库存储数据地方
   state: (): LoginState => {
     return {
-      pwdLogin: true
+      accountLogin: true
     }
   },
   //异步|逻辑的地方
   actions: {
-    
+
   },
   getters: {
-    getPwdLogin():boolean{
-        return this.pwdLogin;
+    getAccountLogin():boolean{
+        return this.accountLogin;
     }
   },
 })
 //对外暴露获取小仓库方法
-export default userLoginStore
+export default useLoginStore

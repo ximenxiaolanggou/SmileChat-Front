@@ -1,9 +1,13 @@
 const constantRoute = [
     {
-        //page1
         path: '/login',
         component: () => import('@/views/login/index.vue'),
         name: 'login'
+    },
+    {
+      path: '/chat',
+      component: () => import('@/views/chat/index.vue'),
+      name: 'chat'
     },
     {
         //404

@@ -1,11 +1,35 @@
+
 <script setup lang="ts">
 
+import { onMounted } from 'vue'
+
+const getWxQrCode = () => {
+  let obj = new WxLogin({
+    self_redirect: true,//扫码后默认重新打开的回调地址，不是当前页打开
+    id: 'wx_login_container',
+    appid: 'wx59cfe0c2243b43c6',
+    scope: 'snsapi_login',
+    redirect_uri: encodeURIComponent(
+      'http://damoncai.center:10001/api/system/wxAuth/login'//配置自己申请的回调地址
+    ),
+    state: Math.ceil(Math.random() * 1000),
+    style: 'black',
+    href:'',
+
+  })
+}
+
+
+onMounted(() => {
+  setTimeout(function(){getWxQrCode()},1000)
+
+})
 
 </script>
 
 <template>
   <div class="login-weixincontainer">
-      <img src="../../../assets/images/1.png" alt="">
+    <div v-loading='true' id="wx_login_container" style="height: 350px"></div>
   </div>
 </template>
 
@@ -13,10 +37,8 @@
 .login-weixincontainer {
   display: flex;
   height: 100%;
-  img {
-    width: 300px;
+  #wx_login_container{
     margin: auto;
   }
-
 }
 </style>

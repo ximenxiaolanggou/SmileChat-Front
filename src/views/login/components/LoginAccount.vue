@@ -1,13 +1,19 @@
 <script setup lang="ts">
+import {login} from '@/api/auth/index'
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
+import useUserInfoStore from '@/store/modules/user'
+import { useRouter } from 'vue-router'
+let $router = useRouter()
+
+const userInfoStore = useUserInfoStore()
 
 const ruleFormRef = ref<FormInstance>()
 
 const validateUsername = (rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('请输入用户名'))
-  }else { 
+  }else {
     callback()
   }
 }
@@ -31,9 +37,12 @@ const rules = reactive<FormRules<typeof ruleForm>>({
 
 const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  formEl.validate((valid) => {
+  formEl.validate(async (valid) => {
     if (valid) {
-      console.log('submit!')
+      const {data} = await login(ruleForm)
+      localStorage.setItem('TOKEN', data)
+      $router.push({name: 'chat'})
+      console.log('submit!', data)
     } else {
       console.log('error submit!')
       return false
@@ -66,7 +75,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
       <el-input
         v-model="ruleForm.password"
         type="password"
-        
+
         placeholder="请输入用密码"
       />
     </el-form-item>

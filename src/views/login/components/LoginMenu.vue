@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import LoginPwd from './LoginPwd.vue';
+import LoginPwd from './LoginAccount.vue';
 import LoginWixin from './LoginWeixin.vue';
 
-import userLoginStore from '@/store/module/login'
-import {LoginState} from '@/store/module/types/login'
+import useLoginStore from '@/store/modules/login'
+import {LoginState} from '@/store/modules/types/login'
 
-let loginStore:LoginState = userLoginStore()
+let loginStore:LoginState = useLoginStore()
 
 
 </script>
 
 <template>
   <div class="container-login-menu">
-   <LoginPwd v-if="loginStore.pwdLogin"/>
+   <LoginPwd v-if="loginStore.accountLogin"/>
    <LoginWixin v-else/>
   </div>
 </template>
@@ -22,7 +22,7 @@ let loginStore:LoginState = userLoginStore()
   width: 680px;
   height: 500px;
   background-image: linear-gradient(to bottom, #DBABA9,#AADCF5);
-  
+
 
 }
 </style>

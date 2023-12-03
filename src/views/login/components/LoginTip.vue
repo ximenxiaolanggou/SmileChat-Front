@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import userLoginStore from '@/store/module/login'
-import {LoginState} from '@/store/module/types/login'
+import useLoginStore from '@/store/modules/login'
+import {LoginState} from '@/store/modules/types/login'
 
-let loginStore:LoginState = userLoginStore()
+let loginStore:LoginState = useLoginStore()
 
 const changeLoginType = () => {
-  loginStore.pwdLogin = !loginStore.pwdLogin
+  loginStore.accountLogin = !loginStore.accountLogin
 }
 
 </script>
@@ -17,7 +17,7 @@ const changeLoginType = () => {
       <div class="title-sub">Hey, 好久不见！</div>
     </div>
     <div @click="changeLoginType" id="border-btn">
-      <button>{{ loginStore.pwdLogin ? '微信登录' : '账号登录' }}</button>
+      <button>{{ loginStore.accountLogin ? '微信登录' : '账号登录' }}</button>
     </div>
 
   </div>

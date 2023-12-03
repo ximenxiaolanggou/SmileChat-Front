@@ -1,3 +1,3 @@
 export interface LoginState {
-    pwdLogin:boolean = true
+    accountLogin:boolean
 }
