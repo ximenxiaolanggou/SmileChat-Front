@@ -2,11 +2,14 @@
 import ChatMenu from './components/ChatMenu.vue'
 import ChatContent from './components/ChatContent.vue'
 import ChatGroupUser from './components/ChatGroupUser.vue'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import {ElMessage} from "element-plus";
-
+import { useRouter } from 'vue-router'
+let $router = useRouter()
 const ws_url = import.meta.env.VITE_APP_WS_API
 let pingFlag
+
+let commandClose = ref(false)
 
 // 创建 WebSocket 连接
 let socket = null
@@ -39,15 +42,42 @@ const initWS = () => {
             message: data.payload || '服务器错误',
             type: 'error',
           })
+          // 命令关闭标志位置为true
+          commandClose.value = true
+          // 关闭ws
           socket.close();
+          // 关闭定时器
+          clearInterval(pingFlag)
+          // 清除token
+          localStorage.removeItem('TOKEN')
+          // 跳转到首页
+          console.log("@@@@@@", $router)
+          $router.push({path:'/login'})
+          break
+        case 3:
+          console.log('msgType', 3)
+          ElMessage({
+            showClose: true,
+            message: data.payload || '服务器错误',
+            type: 'error',
+          })
+          // 命令关闭标志位置为true
+          commandClose.value = true
+          // 关闭定时器
+          clearInterval(pingFlag)
+          // 关闭ws
+          socket.close();
+          console.log("@@@@@@", $router)
           break
       }
     }
   })
 
   socket.addEventListener('close', (event) => {
-    console.log('close')
-    initWS()
+    console.log('close',event)
+    if(!commandClose) {
+      initWS()
+    }
   })
 }
 
