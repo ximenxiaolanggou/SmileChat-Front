@@ -3,43 +3,38 @@ import { defineStore } from 'pinia'
 
 import { UserInfo } from './user.d.ts'
 
-import {login, userInfo, wxLogin} from '@/api/auth/index'
-
-
-
+import { login, userInfo, wxLogin } from '@/api/auth/index'
 
 //创建用户小仓库
 const useUserInfoStore = defineStore('user', {
   //小仓库存储数据地方
-  state: ():UserInfo => {
+  state: (): UserInfo => {
     return {
       username: '',
       mobile: '',
-      mail: ''
+      mail: '',
     }
   },
   //异步|逻辑的地方
   actions: {
     // 获取用户信息
-    async userInfo  () {
-       const user = await userInfo()
-       this.username = user.data.username
-       this.mobile = user.data.mobile
-       this.mail = user.data.mail
+    async userInfo() {
+      const user = await userInfo()
+      this.username = user.data.username
+      this.mobile = user.data.mobile
+      this.mail = user.data.mail
     },
 
-      /**
-       * 微信登录
-       * @param code
-       */
-    async wxLogin(code:string) {
-        const res = await wxLogin(code)
-        localStorage.setItem('TOKEN', res.data)
-    }
+    /**
+     * 微信登录
+     * @param code
+     */
+    async wxLogin(code: string) {
+      const res = await wxLogin(code)
+      localStorage.setItem('TOKEN', res.data)
+    },
   },
-  getters: {
-
-  },
+  getters: {},
 })
 //对外暴露获取小仓库方法
 export default useUserInfoStore

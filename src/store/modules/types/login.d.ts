@@ -1,3 +1,3 @@
 export interface LoginState {
-    accountLogin:boolean
+  accountLogin: boolean
 }

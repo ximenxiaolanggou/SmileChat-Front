@@ -10,11 +10,11 @@ nprogress.configure({ showSpinner: false })
 import useUserStore from './store/modules/user'
 import pinia from './store'
 const userStore = useUserStore(pinia)
-const whiteList = ['/login','/404']
+const whiteList = ['/login', '/404']
 //全局守卫:项目当中任意路由切换都会触发的钩子
 //全局前置守卫
 router.beforeEach(async (to: any, from: any, next: any) => {
-  if(to.path == '/chat' && to.query?.code){
+  if (to.path == '/chat' && to.query?.code) {
     await userStore.wxLogin(to.query!.code)
     delete to.query
   }

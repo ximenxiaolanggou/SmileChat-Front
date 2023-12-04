@@ -1,23 +1,30 @@
 <script setup lang="ts">
-
 import LoginTip from './components/LoginTip.vue'
 import LoginMenu from './components/LoginMenu.vue'
 import useLoginStore from '@/store/modules/login'
-import {LoginState} from '@/store/modules/types/login'
+import { LoginState } from '@/store/modules/types/login'
 
-let loginStore:LoginState = useLoginStore()
-
-
-
-
+let loginStore: LoginState = useLoginStore()
 </script>
 
 <template>
   <div class="container">
-   <div class="container-login">
-    <LoginTip  :class="['login-tip',loginStore.accountLogin ? 'login-tip-to-pwd' : 'login-tip-to-weixin']"/>
-    <LoginMenu :class="['login-menu',loginStore.accountLogin ? 'login-menu-to-pwd' : 'login-menu-to-weixin']"/>
-   </div>
+    <div class="container-login">
+      <LoginTip
+        :class="[
+          'login-tip',
+          loginStore.accountLogin ? 'login-tip-to-pwd' : 'login-tip-to-weixin',
+        ]"
+      />
+      <LoginMenu
+        :class="[
+          'login-menu',
+          loginStore.accountLogin
+            ? 'login-menu-to-pwd'
+            : 'login-menu-to-weixin',
+        ]"
+      />
+    </div>
   </div>
 </template>
 

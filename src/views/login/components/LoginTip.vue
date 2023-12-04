@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import useLoginStore from '@/store/modules/login'
-import {LoginState} from '@/store/modules/types/login'
+import { LoginState } from '@/store/modules/types/login'
 
-let loginStore:LoginState = useLoginStore()
+let loginStore: LoginState = useLoginStore()
 
 const changeLoginType = () => {
   loginStore.accountLogin = !loginStore.accountLogin
 }
-
 </script>
 
 <template>
@@ -19,7 +18,6 @@ const changeLoginType = () => {
     <div @click="changeLoginType" id="border-btn">
       <button>{{ loginStore.accountLogin ? '微信登录' : '账号登录' }}</button>
     </div>
-
   </div>
 </template>
 
@@ -29,7 +27,7 @@ const changeLoginType = () => {
   height: 500px;
   box-sizing: border-box;
 
-  background-image: linear-gradient(to right, #2D9BA5, #35B38C);
+  background-image: linear-gradient(to right, #2d9ba5, #35b38c);
 
   color: white;
 
@@ -50,14 +48,10 @@ const changeLoginType = () => {
   }
   .login-type {
     font-size: 18px;
-
   }
-
 }
 
-
 #border-btn {
-
 }
 
 button {

@@ -1,48 +1,67 @@
 <script setup lang="ts">
-import ChatMenu from  './components/ChatMenu.vue'
-import ChatContent from  './components/ChatContent.vue'
-import ChatGroupUser from  './components/ChatGroupUser.vue'
+import ChatMenu from './components/ChatMenu.vue'
+import ChatContent from './components/ChatContent.vue'
+import ChatGroupUser from './components/ChatGroupUser.vue'
 import { onMounted } from 'vue'
+import {ElMessage} from "element-plus";
 
-const ws_url =  import.meta.env.VITE_APP_WS_API
+const ws_url = import.meta.env.VITE_APP_WS_API
 let pingFlag
 
-
 // 创建 WebSocket 连接
-let socket = null;
+let socket = null
 const pingFun = () => socket.send('ping')
 
 const initWS = () => {
-  socket = new WebSocket(`${ws_url}/chat?token=${localStorage.getItem('TOKEN')}`);
+  socket = new WebSocket(
+    `${ws_url}/chat?token=${localStorage.getItem('TOKEN')}`,
+  )
   // 添加事件处理程序
   socket.addEventListener('open', (event) => {
-    console.log('WebSocket连接已打开');
-    if(pingFlag) clearInterval(pingFlag)
+    console.log('WebSocket连接已打开')
+    if (pingFlag) clearInterval(pingFlag)
     pingFlag = setInterval(pingFun, 5000)
-  });
+  })
 
   socket.addEventListener('message', (event) => {
-    console.log('收到消息:', event.data);
-  });
+    console.log('收到消息:', event.data)
+    const data = JSON.parse(event.data)
+    if(data) {
+      switch (data.msgType) {
+        case 1:
+          console.log('msgType', 1)
+          socket.close();
+          break
+        case 2:
+          console.log('msgType', 2)
+          ElMessage({
+            showClose: true,
+            message: data.payload || '服务器错误',
+            type: 'error',
+          })
+          socket.close();
+          break
+      }
+    }
+  })
 
   socket.addEventListener('close', (event) => {
+    console.log('close')
     initWS()
-  });
+  })
 }
 
 onMounted(() => {
   initWS()
 })
-
 </script>
-
 
 <template>
   <div class="container">
-    <div class='container-main'>
-      <ChatMenu class='chat-menu'/>
-      <ChatContent class='chat-content'/>
-      <ChatGroupUser class='chat-group-user'/>
+    <div class="container-main">
+      <ChatMenu class="chat-menu" />
+      <ChatContent class="chat-content" />
+      <ChatGroupUser class="chat-group-user" />
     </div>
   </div>
 </template>
@@ -52,7 +71,7 @@ onMounted(() => {
   height: 100vh;
   width: 100%;
   overflow: hidden;
-  background: url("../../assets/images/bg.png") no-repeat;
+  background: url('../../assets/images/bg.png') no-repeat;
   background-size: cover;
   display: flex;
   .container-main {

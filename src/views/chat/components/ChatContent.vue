@@ -1,12 +1,10 @@
 <template>
-<div class='container-content'>content</div>
+  <div class="container-content">content</div>
 </template>
 
-<script setup lang='ts'>
+<script setup lang="ts"></script>
 
-</script>
-
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .container-content {
   background-color: pink;
 }
