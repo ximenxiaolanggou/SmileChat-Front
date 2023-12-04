@@ -3,7 +3,9 @@ import { defineStore } from 'pinia'
 
 import { UserInfo } from './user.d.ts'
 
-import {userInfo} from '@/api/auth/index'
+import {login, userInfo, wxLogin} from '@/api/auth/index'
+
+
 
 
 //创建用户小仓库
@@ -24,6 +26,15 @@ const useUserInfoStore = defineStore('user', {
        this.username = user.data.username
        this.mobile = user.data.mobile
        this.mail = user.data.mail
+    },
+
+      /**
+       * 微信登录
+       * @param code
+       */
+    async wxLogin(code:string) {
+        const res = await wxLogin(code)
+        localStorage.setItem('TOKEN', res.data)
     }
   },
   getters: {

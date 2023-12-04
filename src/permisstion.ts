@@ -4,6 +4,7 @@ import router from '@/router'
 import nprogress from 'nprogress'
 //引入进度条样式
 import 'nprogress/nprogress.css'
+
 nprogress.configure({ showSpinner: false })
 //获取用户相关的小仓库内部token数据,去判断用户是否登录成功
 import useUserStore from './store/modules/user'
@@ -13,8 +14,9 @@ const whiteList = ['/login','/404']
 //全局守卫:项目当中任意路由切换都会触发的钩子
 //全局前置守卫
 router.beforeEach(async (to: any, from: any, next: any) => {
-  if(window.location.href.indexOf('code')>=0) {
-    alert()
+  if(to.path == '/chat' && to.query?.code){
+    await userStore.wxLogin(to.query!.code)
+    delete to.query
   }
   //to:你将要访问那个路由
   //from:你从来个路由而来
