@@ -3,7 +3,7 @@ import ChatMenu from './components/ChatMenu.vue'
 import ChatContent from './components/ChatContent.vue'
 import ChatGroupUser from './components/ChatGroupUser.vue'
 import { onMounted, ref } from 'vue'
-import {ElMessage} from "element-plus";
+import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 let $router = useRouter()
 const ws_url = import.meta.env.VITE_APP_WS_API
@@ -29,11 +29,11 @@ const initWS = () => {
   socket.addEventListener('message', (event) => {
     console.log('收到消息:', event.data)
     const data = JSON.parse(event.data)
-    if(data) {
+    if (data) {
       switch (data.msgType) {
         case 1:
           console.log('msgType', 1)
-          socket.close();
+          socket.close()
           break
         case 2:
           console.log('msgType', 2)
@@ -45,14 +45,14 @@ const initWS = () => {
           // 命令关闭标志位置为true
           commandClose.value = true
           // 关闭ws
-          socket.close();
+          socket.close()
           // 关闭定时器
           clearInterval(pingFlag)
           // 清除token
           localStorage.removeItem('TOKEN')
           // 跳转到首页
-          console.log("@@@@@@", $router)
-          $router.push({path:'/login'})
+          console.log('@@@@@@', $router)
+          $router.push({ path: '/login' })
           break
         case 3:
           console.log('msgType', 3)
@@ -66,23 +66,23 @@ const initWS = () => {
           // 关闭定时器
           clearInterval(pingFlag)
           // 关闭ws
-          socket.close();
-          console.log("@@@@@@", $router)
+          socket.close()
+          console.log('@@@@@@', $router)
           break
       }
     }
   })
 
   socket.addEventListener('close', (event) => {
-    console.log('close',event)
-    if(!commandClose) {
+    console.log('close', event)
+    if (!commandClose) {
       initWS()
     }
   })
 }
 
 onMounted(() => {
-  initWS()
+  // initWS()
 })
 </script>
 
@@ -106,13 +106,13 @@ onMounted(() => {
   display: flex;
   .container-main {
     height: 80%;
-    width: 70%;
+    width: 80%;
     margin: auto;
     background-color: rgba(100, 200, 100, 0.5);
 
     display: flex;
     .chat-menu {
-      flex: 1.5;
+      flex: 2;
     }
     .chat-content {
       flex: 4;

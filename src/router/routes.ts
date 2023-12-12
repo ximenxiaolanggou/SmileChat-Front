@@ -1,5 +1,9 @@
 const constantRoute = [
   {
+    path: '/',
+    redirect: '/chat',
+  },
+  {
     path: '/login',
     component: () => import('@/views/login/index.vue'),
     name: 'login',
