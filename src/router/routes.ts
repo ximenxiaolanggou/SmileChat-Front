@@ -12,6 +12,12 @@ const constantRoute = [
     path: '/chat',
     component: () => import('@/views/chat/index.vue'),
     name: 'chat',
+    children: [
+      {
+        path: 'chat-card',
+        component: () => import('@/views/chat/index.vue'),
+      }
+    ]
   },
   {
     //404

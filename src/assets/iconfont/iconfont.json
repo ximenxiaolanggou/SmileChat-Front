@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2325936",
+      "name": "添加用户",
+      "font_class": "adduser",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "5387732",
+      "name": "登出",
+      "font_class": "dengchu",
+      "unicode": "eb45",
+      "unicode_decimal": 60229
+    },
+    {
       "icon_id": "12753449",
       "name": "用户管理",
       "font_class": "yonghuguanli_huaban",

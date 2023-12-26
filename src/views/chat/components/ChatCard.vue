@@ -1,21 +1,20 @@
 <template>
   <div class="chat-card">
-    <img :src="ChatCard.avatar" alt="">
+    <img :src="ChatCard.avatar" alt="" />
     <div class="chat-card-main">
-        <span class="chat-card-main-title">{{ ChatCard.title }}</span>
-        <span class="chat-card-main-subtitle">{{ ChatCard.subTitle }}</span>
+      <span class="chat-card-main-title">{{ ChatCard.title }}</span>
+      <span class="chat-card-main-subtitle">{{ ChatCard.subTitle }}</span>
       <div class="chat-card-main-msg">
         {{ ChatCard.latestMsg }}
       </div>
     </div>
-    <span class="latest-msg-time">{{ChatCard.latestMsgTime}}</span>
+    <span class="latest-msg-time">{{ ChatCard.latestMsgTime }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
-import Card from "@/api/chat/ChatCard";
-defineProps<{ChatCard:Card}>()
-
+import Card from '@/types/ChatCard'
+defineProps<{ ChatCard: Card }>()
 </script>
 
 <style scoped lang="scss">
@@ -23,7 +22,7 @@ defineProps<{ChatCard:Card}>()
   border-radius: 10px;
   width: 90%;
   height: 60px;
-  background-color: #2C3E50;
+  background-color: #2c3e50;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -45,7 +44,7 @@ defineProps<{ChatCard:Card}>()
       color: darkgoldenrod;
       padding: 1px;
       margin-left: 5px;
-      background-color: #EFE2BB;
+      background-color: #efe2bb;
       border-radius: 3px;
     }
     .chat-card-main-msg {
@@ -61,10 +60,10 @@ defineProps<{ChatCard:Card}>()
     width: 40px;
     font-size: 12px;
     color: darkgrey;
-
   }
 }
 .chat-card:hover {
   box-shadow: 0px 0px 20px;
 }
 </style>
+@/types/ChatCard
