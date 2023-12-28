@@ -1,9 +1,8 @@
 export default interface ChatCard {
-
   /**
    * id
    */
-  id:string
+  id: string
 
   /**
    * 标题

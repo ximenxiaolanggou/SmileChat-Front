@@ -108,7 +108,7 @@ onMounted(() => {
     height: 80%;
     width: 80%;
     margin: auto;
-    background-color: #272A37;
+    background-color: #272a37;
 
     display: flex;
     .chat-menu {

@@ -1,16 +1,16 @@
 export default interface ChatUserCardEntity {
-    /**
-     * id
-     */
-    id:string
+  /**
+   * id
+   */
+  id: string
 
-    /**
-     * 头像
-     */
-    avatar:string
+  /**
+   * 头像
+   */
+  avatar: string
 
-    /**
-     * 昵称
-     */
-    nickname:string
+  /**
+   * 昵称
+   */
+  nickname: string
 }

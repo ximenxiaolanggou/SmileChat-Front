@@ -1,27 +1,43 @@
 <script setup lang="ts">
 import ChatCard from './ChatCard.vue'
 import ChatUserCard from './ChatUserCard.vue'
-import Card from "@/types/ChatCard"
-import UserCard from "@/types/ChatUserCard"
-import {ref} from 'vue'
+import Card from '@/types/ChatCard'
+import UserCard from '@/types/ChatUserCard'
+import { ref, onMounted } from 'vue'
+import {friends} from '@/api/chat/friends'
+
 let activeFlag = ref(1)
 let searchKey = ref('')
 
-const commonToolChange = (arg:number) => {
+let friendList = ref([])
+
+onMounted(() => {
+  getFriendList()
+})
+
+// 获取好友列表
+const getFriendList = async () => {
+  const res = await friends(searchKey.value)
+  console.log(res)
+}
+
+const commonToolChange = (arg: number) => {
   activeFlag.value = arg
 }
 
 let userCards = ref<UserCard[]>([
   {
     id: '1',
-    avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/m5tWwzPm5KULpuWEmAicrrQasbS8WlKZicMD8qkAOhk3T5ciaMYqJVIniaS7RgObgYqaemvHj7LumsyialRd6InFhLA/132',
-    nickname: '西门小狼狗'
+    avatar:
+      'https://thirdwx.qlogo.cn/mmopen/vi_32/m5tWwzPm5KULpuWEmAicrrQasbS8WlKZicMD8qkAOhk3T5ciaMYqJVIniaS7RgObgYqaemvHj7LumsyialRd6InFhLA/132',
+    nickname: '西门小狼狗',
   },
   {
     id: '2',
-    avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/m5tWwzPm5KULpuWEmAicrrQasbS8WlKZicMD8qkAOhk3T5ciaMYqJVIniaS7RgObgYqaemvHj7LumsyialRd6InFhLA/132',
-    nickname: '西门小狼狗'
-  }
+    avatar:
+      'https://thirdwx.qlogo.cn/mmopen/vi_32/m5tWwzPm5KULpuWEmAicrrQasbS8WlKZicMD8qkAOhk3T5ciaMYqJVIniaS7RgObgYqaemvHj7LumsyialRd6InFhLA/132',
+    nickname: '西门小狼狗',
+  },
 ])
 
 let cards = ref<Card[]>([
@@ -29,28 +45,28 @@ let cards = ref<Card[]>([
     id: '1',
     title: '全员群',
     subTitle: '官方',
-    avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/m5tWwzPm5KULpuWEmAicrrQasbS8WlKZicMD8qkAOhk3T5ciaMYqJVIniaS7RgObgYqaemvHj7LumsyialRd6InFhLA/132',
+    avatar:
+      'https://thirdwx.qlogo.cn/mmopen/vi_32/m5tWwzPm5KULpuWEmAicrrQasbS8WlKZicMD8qkAOhk3T5ciaMYqJVIniaS7RgObgYqaemvHj7LumsyialRd6InFhLA/132',
     latestMsg: '西门小狼狗: hello world haha aaaaaaaaaaaaaaaaaaaaaa',
-    latestMsgTime: '12:12'
-
+    latestMsgTime: '12:12',
   },
   {
     id: '2',
     title: '全员群',
     subTitle: '官方',
-    avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/m5tWwzPm5KULpuWEmAicrrQasbS8WlKZicMD8qkAOhk3T5ciaMYqJVIniaS7RgObgYqaemvHj7LumsyialRd6InFhLA/132',
+    avatar:
+      'https://thirdwx.qlogo.cn/mmopen/vi_32/m5tWwzPm5KULpuWEmAicrrQasbS8WlKZicMD8qkAOhk3T5ciaMYqJVIniaS7RgObgYqaemvHj7LumsyialRd6InFhLA/132',
     latestMsg: '西门小狼狗: hello world haha aaaaaaaaaaaaaaaaaaaaaa',
-    latestMsgTime: '12:12'
-
+    latestMsgTime: '12:12',
   },
   {
     id: '3',
     title: '全员群',
     subTitle: '官方',
-    avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/m5tWwzPm5KULpuWEmAicrrQasbS8WlKZicMD8qkAOhk3T5ciaMYqJVIniaS7RgObgYqaemvHj7LumsyialRd6InFhLA/132',
+    avatar:
+      'https://thirdwx.qlogo.cn/mmopen/vi_32/m5tWwzPm5KULpuWEmAicrrQasbS8WlKZicMD8qkAOhk3T5ciaMYqJVIniaS7RgObgYqaemvHj7LumsyialRd6InFhLA/132',
     latestMsg: '西门小狼狗: hello world haha aaaaaaaaaaaaaaaaaaaaaa',
-    latestMsgTime: '12:12'
-
+    latestMsgTime: '12:12',
   },
 ])
 </script>
@@ -59,9 +75,25 @@ let cards = ref<Card[]>([
     <div class="nav-bar">
       <!--导航栏上面公用操作-->
       <div class="nav-bar-common">
-        <img src="https://thirdwx.qlogo.cn/mmopen/vi_32/m5tWwzPm5KULpuWEmAicrrQasbS8WlKZicMD8qkAOhk3T5ciaMYqJVIniaS7RgObgYqaemvHj7LumsyialRd6InFhLA/132"/>
-        <span @click="commonToolChange(1)" :class="['iconfont', 'icon-chat', activeFlag == 1 ? 'color-blue': '']"></span>
-        <span @click="commonToolChange(2)" :class="['iconfont', 'icon-yonghuguanli_huaban', activeFlag == 2 ? 'color-blue': '']"></span>
+        <img
+          src="https://thirdwx.qlogo.cn/mmopen/vi_32/m5tWwzPm5KULpuWEmAicrrQasbS8WlKZicMD8qkAOhk3T5ciaMYqJVIniaS7RgObgYqaemvHj7LumsyialRd6InFhLA/132"
+        />
+        <span
+          @click="commonToolChange(1)"
+          :class="[
+            'iconfont',
+            'icon-chat',
+            activeFlag == 1 ? 'color-blue' : '',
+          ]"
+        ></span>
+        <span
+          @click="commonToolChange(2)"
+          :class="[
+            'iconfont',
+            'icon-yonghuguanli_huaban',
+            activeFlag == 2 ? 'color-blue' : '',
+          ]"
+        ></span>
       </div>
       <div class="nav-bar-tool">
         <span class="iconfont icon-dengchu"></span>
@@ -69,12 +101,22 @@ let cards = ref<Card[]>([
     </div>
     <!-- 聊天 -->
     <div class="channel" v-if="activeFlag == 1">
-      <ChatCard class="channel-item" v-for="card in cards" :key="card.id" :ChatCard="card"/>
+      <ChatCard
+        class="channel-item"
+        v-for="card in cards"
+        :key="card.id"
+        :ChatCard="card"
+      />
     </div>
     <!-- 用户 -->
     <div class="user" v-else>
       <div class="user-header">
-        <el-input class="user-header-input" clearable v-model="searchKey" placeholder="搜索" />
+        <el-input
+          class="user-header-input"
+          clearable
+          v-model="searchKey"
+          placeholder="搜索"
+        />
         <span class="iconfont icon-adduser user-header-add"></span>
       </div>
       <ChatUserCard
@@ -89,7 +131,7 @@ let cards = ref<Card[]>([
 
 <style scoped lang="scss">
 .menu {
-  background-color: #272A37;
+  background-color: #272a37;
   display: flex;
   .nav-bar {
     flex: 1;
@@ -155,13 +197,13 @@ let cards = ref<Card[]>([
       }
 
       ::v-deep(.el-input__wrapper) {
-          box-shadow: 0 0 0 0;
-          background-color: transparent;
-          outline-color: transparent;
+        box-shadow: 0 0 0 0;
+        background-color: transparent;
+        outline-color: transparent;
       }
       ::v-deep(.el-input__inner) {
-          color: azure;
-          border: 0px solid transparent;
+        color: azure;
+        border: 0px solid transparent;
       }
       .user-header-add {
         color: white;
