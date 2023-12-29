@@ -1,7 +1,7 @@
 <template>
-  <div class="chat-user-card">
+  <div class="chat-nav-friend-card">
     <img :src="friend.headimgurl" alt="" />
-    <span class="chat-user-nickname">{{ friend.nickname }}</span>
+    <span class="chat-nav-friend-card-nickname">{{ friend.nickname }}</span>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ defineProps<{ friend: Friend }>()
 </script>
 
 <style scoped lang="scss">
-.chat-user-card {
+.cchat-nav-friend-card {
   border-radius: 10px;
   width: 90%;
   height: 60px;
@@ -26,13 +26,13 @@ defineProps<{ friend: Friend }>()
     border-radius: 50%;
     margin-left: 10px;
   }
-  .chat-user-nickname {
+  .chat-nav-friend-card-nickname {
     margin-left: 20px;
     color: white;
     width: 170px;
   }
 }
-.chat-user-card:hover {
+.chat-nav-friend-card:hover {
   box-shadow: 0px 0px 20px;
 }
 </style>

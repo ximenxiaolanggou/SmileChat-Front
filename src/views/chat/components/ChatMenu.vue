@@ -25,7 +25,6 @@ const commonToolChange = (arg: number) => {
   activeFlag.value = arg
 }
 
-
 let cards = ref<Card[]>([
   {
     id: '1',
@@ -105,7 +104,7 @@ let cards = ref<Card[]>([
         />
         <span class="iconfont icon-adduser user-header-add"></span>
       </div>
-      <el-scrollbar class="user-item" >
+      <el-scrollbar class="user-item">
         <ChatUserCard
           class="user-item-card"
           v-for="(friend, index) in friendList"
