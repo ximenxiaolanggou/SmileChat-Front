@@ -141,8 +141,6 @@ const users = reactive<ChatUser[]>([
 </script>
 <style scoped lang="scss">
 .container-group-user {
-  overflow-y: scroll;
-  overflow-x: hidden;
   background-color: #323644;
   margin: 20px;
   border-radius: 10px;
@@ -154,13 +152,13 @@ const users = reactive<ChatUser[]>([
     height: 30px;
     line-height: 30px;
     font-size: 18px;
-    position: fixed;
     background-color: #323644;
-    z-index: 999;
     width: 220px;
   }
   .container-group-user-items {
+    overflow: auto;
     margin-top: 30px;
+    height: 90%;
   }
 }
 

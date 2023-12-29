@@ -157,7 +157,7 @@ let messages = reactive<TextMessage[]>([
   border-radius: 30px;
   background-clip: content-box;
   background-color: #323644;
-  padding: 20px;
+  // padding: 20px;
   .container-content-msg {
     overflow-y: scroll;
     height: 90%;

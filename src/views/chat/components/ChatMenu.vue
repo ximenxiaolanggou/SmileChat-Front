@@ -2,14 +2,14 @@
 import ChatCard from './ChatCard.vue'
 import ChatUserCard from './ChatUserCard.vue'
 import Card from '@/types/ChatCard'
-import UserCard from '@/types/ChatUserCard'
 import { ref, onMounted } from 'vue'
-import {friends} from '@/api/chat/friends'
+import { friends } from '@/api/chat/friends'
+import FriendModel from '@/types/friend/friend'
 
 let activeFlag = ref(1)
 let searchKey = ref('')
 
-let friendList = ref([])
+let friendList = ref<FriendModel[]>([])
 
 onMounted(() => {
   getFriendList()
@@ -18,27 +18,13 @@ onMounted(() => {
 // 获取好友列表
 const getFriendList = async () => {
   const res = await friends(searchKey.value)
-  console.log(res)
+  friendList.value = res.data
 }
 
 const commonToolChange = (arg: number) => {
   activeFlag.value = arg
 }
 
-let userCards = ref<UserCard[]>([
-  {
-    id: '1',
-    avatar:
-      'https://thirdwx.qlogo.cn/mmopen/vi_32/m5tWwzPm5KULpuWEmAicrrQasbS8WlKZicMD8qkAOhk3T5ciaMYqJVIniaS7RgObgYqaemvHj7LumsyialRd6InFhLA/132',
-    nickname: '西门小狼狗',
-  },
-  {
-    id: '2',
-    avatar:
-      'https://thirdwx.qlogo.cn/mmopen/vi_32/m5tWwzPm5KULpuWEmAicrrQasbS8WlKZicMD8qkAOhk3T5ciaMYqJVIniaS7RgObgYqaemvHj7LumsyialRd6InFhLA/132',
-    nickname: '西门小狼狗',
-  },
-])
 
 let cards = ref<Card[]>([
   {
@@ -119,12 +105,14 @@ let cards = ref<Card[]>([
         />
         <span class="iconfont icon-adduser user-header-add"></span>
       </div>
-      <ChatUserCard
-        class="user-item"
-        v-for="card in userCards"
-        :key="card.id"
-        :ChatUserCard="card"
-      />
+      <el-scrollbar class="user-item" >
+        <ChatUserCard
+          class="user-item-card"
+          v-for="(friend, index) in friendList"
+          :key="index"
+          :friend="friend"
+        />
+      </el-scrollbar>
     </div>
   </div>
 </template>
@@ -175,6 +163,8 @@ let cards = ref<Card[]>([
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto;
+    height: 500px;
     .channel-item {
       margin-top: 10px;
     }
@@ -185,6 +175,7 @@ let cards = ref<Card[]>([
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto;
     .user-header {
       width: 100%;
       margin-top: 15px;
@@ -214,7 +205,10 @@ let cards = ref<Card[]>([
       }
     }
     .user-item {
-      margin-top: 10px;
+      height: 90%;
+      .user-item-card {
+        margin-top: 10px;
+      }
     }
   }
 }
@@ -224,5 +218,26 @@ let cards = ref<Card[]>([
 
 .el-input__inner {
   background-color: pink !important;
+}
+
+/* 修改滚动条的颜色和宽度 */
+::-webkit-scrollbar {
+  width: 10px; /* 设置滚动条宽度 */
+}
+
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+  background-color: #323644; /* 设置滚动槽的颜色 */
+}
+
+/* 滚动条的滑块 */
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* 设置滚动条滑块的颜色 */
+  border-radius: 5px; /* 设置滑块的圆角 */
+}
+
+/* 当鼠标悬停在滑块上时的样式 */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
 }
 </style>

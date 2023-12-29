@@ -1,13 +1,13 @@
 <template>
   <div class="chat-user-card">
-    <img :src="ChatUserCard.avatar" alt="" />
-    <span class="chat-user-nickname">{{ ChatUserCard.nickname }}</span>
+    <img :src="friend.headimgurl" alt="" />
+    <span class="chat-user-nickname">{{ friend.nickname }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
-import UserCard from '@/types/ChatUserCard'
-defineProps<{ ChatUserCard: UserCard }>()
+import Friend from '@/types/friend/friend';
+defineProps<{ friend: Friend }>()
 </script>
 
 <style scoped lang="scss">

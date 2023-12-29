@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ChatMenu from './components/ChatMenu.vue'
+import ChatNav from './components/ChatNav/index.vue'
 import ChatContent from './components/ChatContent.vue'
 import ChatGroupUser from './components/ChatGroupUser.vue'
 import { onMounted, ref } from 'vue'
@@ -88,10 +88,10 @@ onMounted(() => {
 
 <template>
   <div class="container">
-    <div class="container-main">
-      <ChatMenu class="chat-menu" />
-      <ChatContent class="chat-content" />
-      <ChatGroupUser class="chat-group-user" />
+    <div class="container-content">
+      <ChatNav class="container-content-nav" />
+      <!-- <ChatContent class="container-content-chat" /> -->
+      <!-- <ChatGroupUser class="container-content-online" /> -->
     </div>
   </div>
 </template>
@@ -104,21 +104,21 @@ onMounted(() => {
   background: url('../../assets/images/bg.png') no-repeat;
   background-size: cover;
   display: flex;
-  .container-main {
-    height: 80%;
-    width: 80%;
+  .container-content {
+    height: 750px;
+    width: 1350px;
     margin: auto;
     background-color: #272a37;
 
     display: flex;
-    .chat-menu {
-      flex: 2;
+    .container-content-nav {
+      width: 450px;
     }
-    .chat-content {
-      flex: 4;
+    .container-content-chat {
+      width: 700px;
     }
-    .chat-group-user {
-      flex: 1;
+    .container-content-online {
+      width: 250px;
     }
   }
 }

@@ -1,5 +1,7 @@
 import axios from 'axios'
+import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { ElMessage } from 'element-plus'
+
 //获取存储用户信息的仓库对象
 //创建axios实例
 const request = axios.create({
