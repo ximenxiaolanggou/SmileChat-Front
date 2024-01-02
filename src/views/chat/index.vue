@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ChatNav from './components/ChatNav/index.vue'
-import ChatContent from './components/ChatContent.vue'
-import ChatGroupUser from './components/ChatGroupUser.vue'
+import ChatContent from './components/ChatContent/index.vue'
+import ChatGroupUser from './components/ChatOnline/index.vue'
 import { onMounted, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
@@ -90,8 +90,8 @@ onMounted(() => {
   <div class="container">
     <div class="container-content">
       <ChatNav class="container-content-nav" />
-      <!-- <ChatContent class="container-content-chat" /> -->
-      <!-- <ChatGroupUser class="container-content-online" /> -->
+      <ChatContent class="container-content-chat" />
+      <ChatGroupUser class="container-content-online" />
     </div>
   </div>
 </template>
@@ -106,7 +106,7 @@ onMounted(() => {
   display: flex;
   .container-content {
     height: 750px;
-    width: 1350px;
+    width: 1400px;
     margin: auto;
     background-color: #272a37;
 

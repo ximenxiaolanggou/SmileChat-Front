@@ -1,13 +1,13 @@
 <template>
   <!-- 聊天 -->
-  <div class="chat-nav-session">
+  <el-scrollbar class="chat-nav-session">
     <ChatNavSessionCard
       class="chat-nav-session-item"
       v-for="sessionDetail in sessionDetails"
       :key="sessionDetail.id"
       :sessionDetail="sessionDetail"
     />
-  </div>
+  </el-scrollbar>
 </template>
 
 <script setup lang="ts">

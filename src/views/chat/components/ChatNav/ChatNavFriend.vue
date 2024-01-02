@@ -6,22 +6,28 @@
         clearable
         v-model="searchKey"
         placeholder="好友"
+        @blur="getFriendList"
+        @clear="getFriendListAfterClear"
       />
-      <span class="iconfont icon-adduser friend-tool-add"></span>
+      <span @click="addFriendHandle" class="iconfont icon-adduser friend-tool-add"></span>
     </div>
-    <ChatNavFriendCard
-      class="chat-nav-friend-card"
-      v-for="(friend, index) in friendList"
-      :key="index"
-      :friend="friend"
-    />
+    <el-scrollbar class="chat-nav-friend-cards">
+      <div style="height: 660px;" ref="scroLoading">
+        <ChatNavFriendCard
+          class="chat-nav-friend-card-item"
+          v-for="(friend, index) in friendList"
+          :key="index"
+          :friend="friend"
+        />
+      </div>
+      <el-empty v-if='friendsEmptyFlag' :image-size="100" />
+    </el-scrollbar>
+    <!--  -->
   </div>
-  <!-- <el-scrollbar class="chat-nav-friend-scrollbar" >
-      11111
-    </el-scrollbar> -->
 </template>
 
 <script setup lang="ts">
+import { ElLoading } from 'element-plus'
 import ChatNavFriendCard from './ChatNavFriendCard.vue'
 import FriendModel from '@/types/friend/friend'
 import { ref, onMounted } from 'vue'
@@ -30,29 +36,52 @@ import { friends } from '@/api/chat/friends'
 
 let searchKey = ref('')
 
+let scroLoading = ref()
+
+let friendsEmptyFlag = ref(false)
+
 let friendList = ref<FriendModel[]>([])
 
+// 加载框实例
+let loadingInstance = null
+
+// 添加好友按钮事件
+const addFriendHandle = () => {
+
+}
+
+
+// 清除后获取好友列表
+const getFriendListAfterClear = () => {
+  searchKey.value = ''
+  getFriendList()
+}
 onMounted(() => {
   getFriendList()
 })
 
 // 获取好友列表
 const getFriendList = async () => {
+  console.log('@@@', scroLoading.value);
+  loadingInstance = ElLoading.service({ fullscreen: false, target: scroLoading.value,background:'transparent' })
+  
   const res = await friends(searchKey.value)
+  loadingInstance.close()
   friendList.value = res.data
+  friendsEmptyFlag.value = res.data?.length == 0
 }
 </script>
 
 <style scoped lang="scss">
 .chat-nav-friend {
-  height: 100%;
+  height: 740px;
   width: 100%;
   .chat-nav-friend-tool {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10px;
+    height: 80px;
     .friend-tool-search {
       width: 250px;
       margin-left: 10px;
@@ -67,15 +96,14 @@ const getFriendList = async () => {
       border: 0px solid transparent;
     }
     .friend-tool-add {
+      color: #fff;
       font-size: 20px;
       margin-right: 10px;
     }
+    :hover {
+      cursor: pointer;
+    }
   }
-  flex: 4;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-y: auto;
   .friend-header {
     width: 100%;
     margin-top: 15px;
@@ -104,11 +132,17 @@ const getFriendList = async () => {
       cursor: pointer;
     }
   }
-  .user-item {
-    height: 90%;
-    .user-item-card {
+  .chat-nav-friend-cards {
+    height: 660px;
+    width: 100%;
+    .chat-nav-friend-card-item {
       margin-top: 10px;
     }
   }
+}
+
+
+.loadingClass {
+  height: 200px;
 }
 </style>

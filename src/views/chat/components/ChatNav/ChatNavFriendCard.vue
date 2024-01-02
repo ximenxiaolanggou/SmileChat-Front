@@ -11,18 +11,19 @@ defineProps<{ friend: Friend }>()
 </script>
 
 <style scoped lang="scss">
-.cchat-nav-friend-card {
+.chat-nav-friend-card {
   border-radius: 10px;
-  width: 90%;
+  width: 90% !important;
   height: 60px;
   background-color: #2c3e50;
   display: flex;
   align-items: center;
   justify-content: start;
   transition: 0.3s;
+  margin: 10px auto;
   img {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     margin-left: 10px;
   }
@@ -36,4 +37,3 @@ defineProps<{ friend: Friend }>()
   box-shadow: 0px 0px 20px;
 }
 </style>
-@/types/ChatCard
