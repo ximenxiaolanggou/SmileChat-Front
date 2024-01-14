@@ -9,10 +9,13 @@
         @blur="getFriendList"
         @clear="getFriendListAfterClear"
       />
-      <span @click="addFriendHandle" class="iconfont icon-adduser friend-tool-add"></span>
+      <span
+        @click="addFriendHandle"
+        class="iconfont icon-adduser friend-tool-add"
+      ></span>
     </div>
     <el-scrollbar class="chat-nav-friend-cards">
-      <div style="height: 660px;" ref="scroLoading">
+      <div style="height: 660px" ref="scroLoading">
         <ChatNavFriendCard
           class="chat-nav-friend-card-item"
           v-for="(friend, index) in friendList"
@@ -20,7 +23,7 @@
           :friend="friend"
         />
       </div>
-      <el-empty v-if='friendsEmptyFlag' :image-size="100" />
+      <el-empty v-if="friendsEmptyFlag" :image-size="100" />
     </el-scrollbar>
     <!--  -->
   </div>
@@ -46,10 +49,7 @@ let friendList = ref<FriendModel[]>([])
 let loadingInstance = null
 
 // 添加好友按钮事件
-const addFriendHandle = () => {
-
-}
-
+const addFriendHandle = () => {}
 
 // 清除后获取好友列表
 const getFriendListAfterClear = () => {
@@ -62,9 +62,13 @@ onMounted(() => {
 
 // 获取好友列表
 const getFriendList = async () => {
-  console.log('@@@', scroLoading.value);
-  loadingInstance = ElLoading.service({ fullscreen: false, target: scroLoading.value,background:'transparent' })
-  
+  console.log('@@@', scroLoading.value)
+  loadingInstance = ElLoading.service({
+    fullscreen: false,
+    target: scroLoading.value,
+    background: 'transparent',
+  })
+
   const res = await friends(searchKey.value)
   loadingInstance.close()
   friendList.value = res.data
@@ -140,7 +144,6 @@ const getFriendList = async () => {
     }
   }
 }
-
 
 .loadingClass {
   height: 200px;
