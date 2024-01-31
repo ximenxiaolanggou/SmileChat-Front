@@ -8,6 +8,7 @@
         placeholder="好友"
         @blur="getFriendList"
         @clear="getFriendListAfterClear"
+        @keyup.enter="getFriendList"
       />
       <span
         @click="addFriendHandle"
@@ -27,12 +28,14 @@
     </el-scrollbar>
     <!--  -->
   </div>
+  <ChatNavFriendApply class="friend-apply-model"/>
 </template>
 
 <script setup lang="ts">
 import { ElLoading } from 'element-plus'
 import ChatNavFriendCard from './ChatNavFriendCard.vue'
 import FriendModel from '@/types/friend/friend'
+import ChatNavFriendApply from './ChatNavFriendApply.vue'
 import { ref, onMounted } from 'vue'
 
 import { friends } from '@/api/chat/friends'
@@ -49,7 +52,9 @@ let friendList = ref<FriendModel[]>([])
 let loadingInstance = null
 
 // 添加好友按钮事件
-const addFriendHandle = () => {}
+const addFriendHandle = () => {
+
+}
 
 // 清除后获取好友列表
 const getFriendListAfterClear = () => {
@@ -141,11 +146,19 @@ const getFriendList = async () => {
     width: 100%;
     .chat-nav-friend-card-item {
       margin-top: 10px;
+      cursor: pointer;
     }
   }
 }
 
 .loadingClass {
   height: 200px;
+}
+
+.friend-apply-model {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 100px
 }
 </style>

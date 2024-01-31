@@ -79,6 +79,7 @@ let cards = ref<Card[]>([
             activeFlag == 2 ? 'chat-nav-bar-active' : 'chat-nav-bar-inactive',
           ]"
         ></span>
+
       </div>
       <div class="chat-nav-bar-tool">
         <span class="iconfont icon-dengchu"></span>
@@ -120,6 +121,7 @@ let cards = ref<Card[]>([
       span {
         margin-top: 20px;
         font-size: 28px;
+        cursor: pointer;
       }
     }
     .chat-nav-bar-tool {

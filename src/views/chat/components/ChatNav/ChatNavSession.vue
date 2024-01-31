@@ -52,6 +52,7 @@ let sessionDetails = ref<SessionDetail[]>([
   height: 100%;
   .chat-nav-session-item {
     margin: 10px auto;
+    cursor: pointer;
   }
 }
 </style>

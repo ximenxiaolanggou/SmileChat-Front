@@ -3,7 +3,9 @@ import { defineStore } from 'pinia'
 
 import { UserInfo } from './user.d.ts'
 
-import { login, userInfo, wxLogin } from '@/api/auth/index'
+import { userInfo } from '@/api/auth/index'
+
+import {wxLogin } from '@/api/chat/Wx'
 
 //创建用户小仓库
 const useUserInfoStore = defineStore('user', {
