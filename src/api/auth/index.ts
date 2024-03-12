@@ -3,11 +3,9 @@ import request from '@/utils/request'
 
 enum API {
   AUTH = '/system/auth/login',
-  
+
   USERINFO = '/system/auth/userInfo',
 }
-
-
 
 /**
  * 登录接口
@@ -30,5 +28,3 @@ export const userInfo = () => {
     method: 'get',
   })
 }
-
-

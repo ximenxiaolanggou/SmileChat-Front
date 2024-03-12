@@ -79,7 +79,6 @@ let cards = ref<Card[]>([
             activeFlag == 2 ? 'chat-nav-bar-active' : 'chat-nav-bar-inactive',
           ]"
         ></span>
-
       </div>
       <div class="chat-nav-bar-tool">
         <span class="iconfont icon-dengchu"></span>

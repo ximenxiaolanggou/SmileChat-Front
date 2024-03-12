@@ -5,7 +5,7 @@ import { UserInfo } from './user.d.ts'
 
 import { userInfo } from '@/api/auth/index'
 
-import {wxLogin } from '@/api/chat/Wx'
+import { wxLogin } from '@/api/chat/Wx'
 
 //创建用户小仓库
 const useUserInfoStore = defineStore('user', {

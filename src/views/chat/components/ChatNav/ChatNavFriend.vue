@@ -28,7 +28,7 @@
     </el-scrollbar>
     <!--  -->
   </div>
-  <ChatNavFriendApply class="friend-apply-model"/>
+  <ChatNavFriendApply class="friend-apply-model" />
 </template>
 
 <script setup lang="ts">
@@ -52,9 +52,7 @@ let friendList = ref<FriendModel[]>([])
 let loadingInstance = null
 
 // 添加好友按钮事件
-const addFriendHandle = () => {
-
-}
+const addFriendHandle = () => {}
 
 // 清除后获取好友列表
 const getFriendListAfterClear = () => {
@@ -159,6 +157,6 @@ const getFriendList = async () => {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  top: 100px
+  top: 100px;
 }
 </style>
