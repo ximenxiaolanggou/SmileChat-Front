@@ -17,6 +17,9 @@ import 'element-plus/dist/index.css'
 //@ts-ignore
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
+// Import default CSS
+import "emoji-mart-vue-fast/css/emoji-mart.css";
+
 const app = createApp(App)
 app.use(ElementPlus, {
   locale: zhCn,

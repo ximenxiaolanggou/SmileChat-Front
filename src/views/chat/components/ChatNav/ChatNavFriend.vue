@@ -28,7 +28,7 @@
     </el-scrollbar>
     <!--  -->
   </div>
-  <ChatNavFriendApply class="friend-apply-model" />
+<!--  <ChatNavFriendApply class="friend-apply-model" />-->
 </template>
 
 <script setup lang="ts">

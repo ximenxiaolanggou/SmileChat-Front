@@ -1,9 +1,9 @@
 <template>
   <div class="container-online-user">
-    <div class="container-online-user-count">在线人数: {{ 82 }} 人</div>
+    <div class="container-online-user-count">总共人数: {{ onlineUsers ?  onlineUsers.length : 0}} 人</div>
     <el-scrollbar class="container-online-user-items">
       <ChatGroupUserItem
-        v-for="user in users"
+        v-for="user in onlineUsers"
         :key="user.id"
         :UserItem="user"
       />
@@ -15,6 +15,7 @@
 import { reactive } from 'vue'
 import ChatGroupUserItem from './ChatOnlineUserItem.vue'
 import ChatUser from '@/types/ChatUserCard'
+defineProps<{onlineUsers: ChatUser[]}>()
 
 const users = reactive<ChatUser[]>([
   {

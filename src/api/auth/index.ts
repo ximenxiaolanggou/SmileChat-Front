@@ -1,9 +1,8 @@
-import { LoginParams } from './index.d.ts'
+import {LoginParams} from './type.ts'
 import request from '@/utils/request'
 
 enum API {
   AUTH = '/system/auth/login',
-
   USERINFO = '/system/auth/userInfo',
 }
 

@@ -8,5 +8,5 @@ export default interface TextMessage extends BaseMessage {
   /**
    * 文本消息内容
    */
-  textMessageContent: string
+  content: string
 }

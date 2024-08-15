@@ -13,7 +13,7 @@ const userStore = useUserStore(pinia)
 const whiteList = ['/login', '/404']
 //全局守卫:项目当中任意路由切换都会触发的钩子
 //全局前置守卫
-router.beforeEach(async (to: any, from: any, next: any) => {
+router.beforeEach(async (to: any, _from: any, next: any) => {
   if (to.path == '/chat' && to.query?.code) {
     await userStore.wxLogin(to.query!.code)
     delete to.query
@@ -45,7 +45,6 @@ router.beforeEach(async (to: any, from: any, next: any) => {
           //万一:刷新的时候是异步路由,有可能获取到用户信息、异步路由还没有加载完毕,出现空白的效果
           next({ ...to })
         } catch (error) {
-          debugger
           //token过期:获取不到用户信息了
           //用户手动修改本地存储token
           //退出登录->用户相关的数据清空
@@ -65,7 +64,7 @@ router.beforeEach(async (to: any, from: any, next: any) => {
   }
 })
 //全局后置守卫
-router.afterEach((to: any, from: any) => {
+router.afterEach((to: any, _from: any) => {
   nprogress.done()
 })
 

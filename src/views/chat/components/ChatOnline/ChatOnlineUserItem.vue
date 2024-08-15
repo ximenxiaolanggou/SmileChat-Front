@@ -1,7 +1,7 @@
 <template>
   <div v-on:contextmenu="showContextMenu" class="container-group-user-item">
-    <img :src="userItem.avatar" alt="" />
-    <span>{{ userItem.nickname }}</span>
+    <img :src="UserItem.headimgurl" alt="" />
+    <span :class="{online: !!UserItem.isOnline}">{{ UserItem.nickname}}</span>
     <div
       :style="rightClickMenuStyle"
       :class="[
@@ -17,17 +17,15 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-const userItemProps = defineProps<{
-  UserItem: { id: string; nickname: string; avatar: string }
-}>()
+import ChatUser from '@/types/ChatUserCard'
+defineProps<{ UserItem: ChatUser}>()
 
-const userItem = userItemProps.UserItem
 
 const rightClickMenuStyle = reactive({ offsetX: '0px', offsetY: '0px' })
 
 let rightClickMenuVisiable = ref(false)
 
-const showContextMenu = (e) => {
+const showContextMenu = (e: any) => {
   e.preventDefault() // Prevent the browser's context menu from showing up
   rightClickMenuStyle.offsetX = e.offsetX + 'px'
   rightClickMenuStyle.offsetY = e.offsetY + 'px'
@@ -45,6 +43,9 @@ const showContextMenu = (e) => {
     width: 30px;
     border-radius: 50%;
     vertical-align: top;
+  }
+  .online {
+    color: limegreen;
   }
   span {
     display: inline-block;

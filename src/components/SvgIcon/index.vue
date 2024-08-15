@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-const b = defineProps({
+defineProps({
   //xlink:href属性值的前缀
   prefix: {
     type: String,

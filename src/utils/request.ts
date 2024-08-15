@@ -23,6 +23,7 @@ request.interceptors.response.use(
     return response.data
   },
   (error) => {
+    debugger
     const status = error.response.status
     if (status == 500) {
       console.log(error.response.data)

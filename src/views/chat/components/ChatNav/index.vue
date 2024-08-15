@@ -5,6 +5,9 @@ import ChatNavFriend from './ChatNavFriend.vue'
 import { ref, onMounted } from 'vue'
 import { friends } from '@/api/chat/friends'
 import FriendModel from '@/types/friend/friend'
+import useUserInfoStore from "@/store/modules/user";
+
+const userInfoStore = useUserInfoStore()
 
 let activeFlag = ref(1)
 let searchKey = ref('')
@@ -61,7 +64,7 @@ let cards = ref<Card[]>([
       <!--导航栏上面公用操作-->
       <div class="chat-nav-bar-common">
         <img
-          src="https://thirdwx.qlogo.cn/mmopen/vi_32/m5tWwzPm5KULpuWEmAicrrQasbS8WlKZicMD8qkAOhk3T5ciaMYqJVIniaS7RgObgYqaemvHj7LumsyialRd6InFhLA/132"
+          :src="userInfoStore.avatar"
         />
         <span
           @click="commonToolChange(1)"

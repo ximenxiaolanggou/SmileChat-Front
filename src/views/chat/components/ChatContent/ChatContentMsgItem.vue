@@ -7,7 +7,7 @@
   >
     <img
       class="chat-content-msg-item-avatar"
-      :src="message.senderAvatar"
+      :src="message.avatar"
       alt=""
     />
     <div
@@ -34,7 +34,14 @@
             : 'msg-sender-content-left',
         ]"
       >
-        {{ message.textMessageContent }}
+        <div v-if="message.messageType == 101">
+          <!-- 文本消息 -->
+          {{ message.content }}
+        </div>
+        <div v-else-if="message.messageType == 104">
+          <!-- 图片消息 -->
+          <img style="width: 200px;" :src="`${previewUrl}/${message.messageFile?.diskPath}`" alt="">
+        </div>
       </div>
     </div>
   </div>
@@ -43,7 +50,12 @@
 <script setup lang="ts">
 import BaseMessage from '@/types/message/BaseMessage'
 import TextMessage from '@/types/message/TextMessage'
+import {FILE_PREVIEW} from "@/api/chat/ChatSessionMessage";
+import {ref} from 'vue'
+
 const props = defineProps<{ message: BaseMessage }>()
+
+let previewUrl = ref(FILE_PREVIEW)
 
 let message = props.message as TextMessage
 // const type = message.messageType
@@ -82,7 +94,7 @@ let message = props.message as TextMessage
       background-color: #282a35;
       margin-top: 5px;
       color: #fff;
-      font-size: 15px;
+      font-size: 20px;
       line-height: 22px;
       word-break: break-all;
     }

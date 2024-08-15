@@ -4,6 +4,7 @@ import LoginMenu from './components/LoginMenu.vue'
 import useLoginStore from '@/store/modules/login'
 import { LoginState } from '@/store/modules/types/login'
 
+
 let loginStore: LoginState = useLoginStore()
 </script>
 

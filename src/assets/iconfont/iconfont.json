@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2127147",
+      "name": "微笑",
+      "font_class": "Smile",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "20782265",
+      "name": "文件夹",
+      "font_class": "wenjianjia",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
+      "icon_id": "3640135",
+      "name": "语音",
+      "font_class": "yuyin",
+      "unicode": "e8f7",
+      "unicode_decimal": 59639
+    },
+    {
       "icon_id": "2325936",
       "name": "添加用户",
       "font_class": "adduser",

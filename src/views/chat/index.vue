@@ -2,35 +2,73 @@
 import ChatNav from './components/ChatNav/index.vue'
 import ChatContent from './components/ChatContent/index.vue'
 import ChatGroupUser from './components/ChatOnline/index.vue'
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted,ref, provide } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
+import BaseMessage from "@/types/message/BaseMessage";
+import ChatUser from '@/types/ChatUserCard'
 let $router = useRouter()
 const ws_url = import.meta.env.VITE_APP_WS_API
-let pingFlag
+
+let audioRef = ref()
+
+let onlineUsers = ref<ChatUser[]>();
+
+let timerId:number
+let timerRunning = ref(false)
 
 let commandClose = ref(false)
 
+// 标题
+let title = ref('Smile Chat')
+
+// 页面是否可见
+let pageVisiable = ref(true);
+
+// 新消息定时器
+let newMsgTimer:number
+
+// 新消息定时器 启动
+let newMsgTimerRunning = ref(false)
+
+// 实时数据
+let timeMsg = ref<BaseMessage>()
+
 // 创建 WebSocket 连接
-let socket = null
-const pingFun = () => socket.send('ping')
+let socket:any = null
+const pingFun = () => socket.send(JSON.stringify({msgType: 100, content: 'ping'}))
 
 const initWS = () => {
   socket = new WebSocket(
     `${ws_url}/chat?token=${localStorage.getItem('TOKEN')}`,
   )
   // 添加事件处理程序
-  socket.addEventListener('open', (event) => {
+  socket.addEventListener('open', (event: any) => {
     console.log('WebSocket连接已打开')
-    if (pingFlag) clearInterval(pingFlag)
-    pingFlag = setInterval(pingFun, 5000)
+    if (timerId) clearInterval(timerId)
+    timerId = setInterval(pingFun, 5000)
+    timerRunning.value = true
   })
 
-  socket.addEventListener('message', (event) => {
-    console.log('收到消息:', event.data)
+  socket.addEventListener('message', (event:any) => {
+    // console.log('收到消息:', event.data)
     const data = JSON.parse(event.data)
+    console.log(data)
     if (data) {
-      switch (data.msgType) {
+      switch (data.messageType) {
+        case 98:
+          onlineUsers.value = JSON.parse(data.content);
+          break
+        case 99:
+          console.log(data)
+          break
+        case 101:
+        case 104:
+          audioRef.value.volume = 0.3
+          audioRef.value.play()
+          timeMsg.value = data
+          if(!pageVisiable.value && !newMsgTimerRunning.value) newMsgTimerStart();
+          break
         case 1:
           console.log('msgType', 1)
           socket.close()
@@ -47,7 +85,8 @@ const initWS = () => {
           // 关闭ws
           socket.close()
           // 关闭定时器
-          clearInterval(pingFlag)
+          clearInterval(timerId)
+          timerRunning.value = false
           // 清除token
           localStorage.removeItem('TOKEN')
           // 跳转到首页
@@ -64,7 +103,8 @@ const initWS = () => {
           // 命令关闭标志位置为true
           commandClose.value = true
           // 关闭定时器
-          clearInterval(pingFlag)
+          clearInterval(timerId)
+          timerRunning.value = false
           // 关闭ws
           socket.close()
           console.log('@@@@@@', $router)
@@ -73,26 +113,64 @@ const initWS = () => {
     }
   })
 
-  socket.addEventListener('close', (event) => {
-    console.log('close', event)
-    if (!commandClose) {
+  socket.addEventListener('close', (event:any) => {
+    console.log('close event', event)
+    console.log('commandClose', commandClose.value)
+    clearInterval(timerId)
+    if (!commandClose.value) {
       initWS()
     }
   })
 }
 
+const flashTitle = () => {
+  document.title = document.title == 'Smile Chat' ? '新消息' : 'Smile Chat'
+  console.log('@@@')
+}
+
+const newMsgTimerStart = () => {
+  newMsgTimerRunning.value = true
+  newMsgTimer = setInterval(flashTitle,100)
+}
+
+const newMsgTimerStop = () => {
+  newMsgTimerRunning.value = false
+  clearInterval(newMsgTimer);
+}
+
+/**
+ * 发送消息
+ */
+const sendMsgHandle = (value:string) => {
+  socket.send(value)
+}
+
+document.addEventListener('visibilitychange', () => {
+  newMsgTimerStop()
+  if (document.visibilityState === 'visible') {
+    pageVisiable.value = true
+    document.title = 'Smile Chat'
+  } else {
+    pageVisiable.value = false
+  }
+});
+
 onMounted(() => {
-  // initWS()
+  initWS()
 })
+
 </script>
 
 <template>
   <div class="container">
     <div class="container-content">
       <ChatNav class="container-content-nav" />
-      <ChatContent class="container-content-chat" />
-      <ChatGroupUser class="container-content-online" />
+      <ChatContent :message="timeMsg" @sendMsgHandle="sendMsgHandle" class="container-content-chat" />
+      <ChatGroupUser :onlineUsers = "onlineUsers" class="container-content-online" />
     </div>
+    <audio ref="audioRef">
+      <source src="../../assets/tip.mp3" type="audio/mpeg">
+    </audio>
   </div>
 </template>
 

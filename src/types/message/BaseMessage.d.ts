@@ -32,4 +32,14 @@ export default interface BaseMessage {
    * 消息发送是否为本人 0 不是 > 0 是
    */
   messageOwner: number
+
+  /**
+   * 消息会话ID
+   */
+  chatSessionId?: string
+
+  /**
+   * 头像
+   */
+  avatar: string
 }

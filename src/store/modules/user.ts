@@ -1,11 +1,9 @@
 //创建用户相关的小仓库
 import { defineStore } from 'pinia'
 
-import { UserInfo } from './user.d.ts'
+import { UserInfo } from './types/user.ts'
 
-import { userInfo } from '@/api/auth/index'
-
-import { wxLogin } from '@/api/chat/Wx'
+import { wxLogin, userInfo } from '@/api/chat/Wx'
 
 //创建用户小仓库
 const useUserInfoStore = defineStore('user', {
@@ -15,6 +13,7 @@ const useUserInfoStore = defineStore('user', {
       username: '',
       mobile: '',
       mail: '',
+      avatar: '',
     }
   },
   //异步|逻辑的地方
@@ -25,6 +24,7 @@ const useUserInfoStore = defineStore('user', {
       this.username = user.data.username
       this.mobile = user.data.mobile
       this.mail = user.data.mail
+      this.avatar = user.data.avatar
     },
 
     /**
